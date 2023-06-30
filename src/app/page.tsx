@@ -3,11 +3,12 @@ import Image from 'next/image'
 import React, {useState} from 'react';
 import { Header } from "./components/Header";
 import { Sidebar } from "./components/Sidebar";
+import { Body } from "./components/Body";
 
 
 
 export default function Home() {
-        const [sidebar, setSidebar] = useState(false);
+        const [closeSidebar, setCloseSidebar] = useState<boolean>(false);
 
   return (
     <main
@@ -18,9 +19,26 @@ export default function Home() {
       className=''
       >
         
-      <Header/>
+      <Header
+      closeSidebar={closeSidebar}
+      setCloseSidebar={setCloseSidebar}
+      />
 
-      <Sidebar/>
+      { closeSidebar?
+        <Sidebar
+        />
+
+        :
+
+        <div></div>
+      }
+
+          <Body
+        closeSidebar={closeSidebar}
+
+          />
+
+
       </div>
 
     </main>
