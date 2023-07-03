@@ -39,60 +39,71 @@ export const Body = ({closeSidebar} : Porps) => {
     }
 
 
-  return (
-    <div>
-
-      <div
-        className={closeSidebar? '' : ''}
-      >
-        
-
-          <div className='flex justify-center'>
-              <input type="text"
-          className={' text-black mt-10 p-2 w-[600px]'}
-          onChange={(e) => setTextInput(e.target.value)}
-          value={textInput}
-          placeholder='Criar uma nota...'
-         />
-                  
-         {input?
-
-                <input type="text"
-                className={' text-black'}
+    return (
+      <div className="mx-auto">
+        <div className={closeSidebar ? '' : ''}>
+          
+          <div className=' text-white'>
+          {input ? (
+            <div className="flex justify-center mt-5">
+              <input
+                type="text"
+                className={' p-2 w-[600px] border-2 bg-[#202124]'}
                 onChange={(e) => setTitle(e.target.value)}
                 value={title}
-                placeholder='Titulo'
-                />
-                :
-
-              <div></div>
-          
-         }
-
+                placeholder="Titulo"
+                onFocus={() => setInput(true)}
+                onBlur={() => setInput(false)}
+              />
+            </div>
+          ) : (
+            <div></div>
+          )}
+  
+          <div className="flex justify-center">
+            <input
+              type="text"
+              className={' p-2 w-[600px] mb-5 border-2 bg-[#202124]'}
+              onChange={(e) => setTextInput(e.target.value)}
+              value={textInput}
+              placeholder="Criar uma nota..."
+              onFocus={() => setInput(true)}
+   //           onBlur={() => setInput(false)}
+            />
           </div>
-        
-         <button
-         onClick={salvarTarefa}
-         >
-          Fechar
-         </button>
+  
+          {input ? (
+            <div className=' relative'>
+               <div className="flex bg-[#202124]
+                                mx-[410px] py-5 relative bottom-5
+                                 border-2">
+              <button 
+              className='right-30'
+               onClick={salvarTarefa}
+               >
+                Fechar
+               </button>
 
-         {
-           anotacao.map((val) => {
-                return(
-                  <div
-                  key={val.id}
-                  >
-                  <h1>{val.title}</h1>
-    
-                  <p>{val.text}</p>
-                </div>
-                )
-           })
-         }
+            </div>
 
+            <div>
+              
+            </div>
+            </div>
+          ) : (
+            <div></div>
+          )}
+          </div>
+  
+          {anotacao.map((val) => {
+            return (
+              <div key={val.id}>
+                <h1>{val.title}</h1>
+                <p>{val.text}</p>
+              </div>
+            );
+          })}
+        </div>
       </div>
-      
-    </div>
-  )
+    );
 }
