@@ -6,35 +6,38 @@ type Porps = {
   closeSidebar: boolean;
   
 }
+
+type Anotacao = {
+  id: number;
+  title: string;
+  text: string;
+};
+
+
 export const Body = ({closeSidebar} : Porps) => {
   const [input, setInput] = useState<boolean>(false);
   const [textInput, setTextInput] = useState<string>('');
   const [title, setTitle] = useState<string>('');
-  const [anotacao, setAnotacao] = useState([
-    { 
-      id: 0,
-      title: 'titulo',
-      text: 'teste de testo'
-    }
-  ]);
+  const [anotacao, setAnotacao] = useState<Anotacao[]>([]);
 
     const salvarTarefa = () => {
-          alert('Funcionou');
           const novoId = Date.now();
 
           
-           /* const salvarAnotacao = [
-              {
-                id:  novoId,
-                title: title,
-                text: anotacao,
-              }
-
-          ] 
-
-          const newAnotacao = [...salvarAnotacao]
-          setAnotacao(salvarAnotacao); */
+          const salvarAnotacao: Anotacao[] = [
+              ...anotacao,
+            {
+              id: novoId,
+              title: title,
+              text: textInput, 
+            },
+          ];
+          
+          setAnotacao(salvarAnotacao); 
+          setTitle('');
+          setTextInput('');
     }
+
 
   return (
     <div>
@@ -42,18 +45,32 @@ export const Body = ({closeSidebar} : Porps) => {
       <div
         className={closeSidebar? '' : ''}
       >
-          <input type="text"
-          className={' text-black'}
+        
+
+          <div className='flex justify-center'>
+              <input type="text"
+          className={' text-black mt-10 p-2 w-[600px]'}
           onChange={(e) => setTextInput(e.target.value)}
           value={textInput}
+          placeholder='Criar uma nota...'
          />
+                  
+         {input?
 
-          <input type="text"
-          className={' text-black'}
-          onChange={(e) => setTitle(e.target.value)}
-          value={title}
-         />
+                <input type="text"
+                className={' text-black'}
+                onChange={(e) => setTitle(e.target.value)}
+                value={title}
+                placeholder='Titulo'
+                />
+                :
 
+              <div></div>
+          
+         }
+
+          </div>
+        
          <button
          onClick={salvarTarefa}
          >
