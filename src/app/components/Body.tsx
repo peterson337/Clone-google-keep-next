@@ -95,14 +95,24 @@ export const Body = ({closeSidebar} : Porps) => {
           )}
           </div>
   
-          {anotacao.map((val) => {
+          <div
+          className='flex flex-row'
+          >
+          {
+          anotacao.map((val) => {
             return (
-              <div key={val.id}>
+              <div 
+              key={val.id}
+              className='flex flex-wrap border flex-col m-12 w-[200px] 
+                         h-96 p-4 rounded-[20px] border-[#5f6368]'
+              
+              >
                 <h1>{val.title}</h1>
                 <p>{val.text}</p>
               </div>
             );
           })}
+          </div>
         </div>
       </div>
     );
