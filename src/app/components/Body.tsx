@@ -4,6 +4,8 @@ import React, {useState} from 'react';
 
 type Porps = {
   closeSidebar: boolean;
+  isFlexCol: boolean
+  setIsFlexCol: (value: boolean) => void;
   
 }
 
@@ -14,7 +16,7 @@ type Anotacao = {
 };
 
 
-export const Body = ({closeSidebar} : Porps) => {
+export const Body = ({closeSidebar, isFlexCol} : Porps) => {
   const [input, setInput] = useState<boolean>(false);
   const [textInput, setTextInput] = useState<string>('');
   const [title, setTitle] = useState<string>('');
@@ -96,14 +98,17 @@ export const Body = ({closeSidebar} : Porps) => {
           </div>
   
           <div
-          className='flex flex-row'
+               className={isFlexCol ? 
+                    'flex flex-col justify-center' 
+                    :
+                    'flex flex-row flex-wrap'}
           >
           {
           anotacao.map((val) => {
             return (
               <div 
               key={val.id}
-              className='flex flex-wrap border flex-col m-12 w-[200px] 
+              className='flex border flex-wrap flex-col m-12 w-[200px] 
                          h-96 p-4 rounded-[20px] border-[#5f6368]'
               
               >

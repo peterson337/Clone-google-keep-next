@@ -9,10 +9,12 @@ import { Body } from "./components/Body";
 
 export default function Home() {
         const [closeSidebar, setCloseSidebar] = useState<boolean>(false);
+        const [isFlexCol, setIsFlexCol] = useState<boolean>(false);
+
 
   return (
     <main
-    className=' h-screen bg-[#202124]'
+    className=''
     >
 
       <div
@@ -22,6 +24,8 @@ export default function Home() {
       <Header
       closeSidebar={closeSidebar}
       setCloseSidebar={setCloseSidebar}
+      isFlexCol={isFlexCol}
+      setIsFlexCol={setIsFlexCol}
       />
 
       { closeSidebar?
@@ -35,7 +39,8 @@ export default function Home() {
 
           <Body
         closeSidebar={closeSidebar}
-
+        isFlexCol={isFlexCol}
+        setIsFlexCol={setIsFlexCol}
           />
 
 

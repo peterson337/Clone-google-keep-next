@@ -6,9 +6,17 @@ import {SiWindows11 } from 'react-icons/si'
 type Porps = {
   closeSidebar: boolean;
   setCloseSidebar: (value: boolean) => void;
+  isFlexCol: boolean
+  setIsFlexCol: (value: boolean) => void;
+
 }
 
-export const Header = ({closeSidebar, setCloseSidebar } : Porps) => {
+export const Header = ({
+  closeSidebar,
+   setCloseSidebar,
+    setIsFlexCol, 
+    isFlexCol
+  } : Porps) => {
   return (
     <div
     className='flex border-b pb-3 p-4 text-3xl space-x-40'
@@ -38,7 +46,7 @@ export const Header = ({closeSidebar, setCloseSidebar } : Porps) => {
 
          />
 
-        <button>
+        <button onClick={() => setIsFlexCol(!isFlexCol)}>
          <SiWindows11/>
         </button>
 
