@@ -2,6 +2,8 @@ import React from 'react'
 import {FiMenu } from 'react-icons/fi'
 import {BsFillGearFill } from 'react-icons/bs'
 import {SiWindows11 } from 'react-icons/si'
+import { useAnotacoes } from '../Context/store'
+
 
 type Porps = {
   closeSidebar: boolean;
@@ -17,6 +19,9 @@ export const Header = ({
     setIsFlexCol, 
     isFlexCol
   } : Porps) => {
+
+    const { SearchInput, setSearchInput } = useAnotacoes(); // Use o hook do contexto
+      console.log(SearchInput);
   return (
     <div
     className='flex border-b pb-3 p-4 text-3xl space-x-40'
@@ -42,8 +47,8 @@ export const Header = ({
       </div>
 
         <input type="text"
-        className='mr-3'
-
+        className='mr-3 text-black'
+        onChange={(e) => setSearchInput(e.target.value)}
          />
 
         <button onClick={() => setIsFlexCol(!isFlexCol)}>

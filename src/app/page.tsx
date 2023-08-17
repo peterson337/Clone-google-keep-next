@@ -5,8 +5,6 @@ import { Header } from "./components/Header";
 import { Sidebar } from "./components/Sidebar";
 import { Body } from "./components/Body";
 
-
-
 export default function Home() {
         const [closeSidebar, setCloseSidebar] = useState<boolean>(false);
         const [isFlexCol, setIsFlexCol] = useState<boolean>(false);
@@ -28,7 +26,11 @@ export default function Home() {
       setIsFlexCol={setIsFlexCol}
       />
 
-      { closeSidebar?
+     <div
+     className={closeSidebar ? 'md:flex	' : ''}>
+     
+
+     { closeSidebar?
         <Sidebar
         />
 
@@ -42,6 +44,7 @@ export default function Home() {
         isFlexCol={isFlexCol}
         setIsFlexCol={setIsFlexCol}
           />
+     </div>
 
 
       </div>
