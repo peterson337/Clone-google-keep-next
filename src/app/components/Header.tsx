@@ -21,7 +21,6 @@ export const Header = ({
   } : Porps) => {
 
     const { SearchInput, setSearchInput } = useAnotacoes(); // Use o hook do contexto
-      console.log(SearchInput);
   return (
     <div
     className='flex border-b pb-3 p-4 text-3xl space-x-40'

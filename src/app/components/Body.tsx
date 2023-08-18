@@ -26,7 +26,7 @@ export const Body = ({closeSidebar, isFlexCol} : Porps) => {
   const [isOpnModal, setIsOpnModal] = useState(false);
   const [anotacao, setAnotacao] = useState<Anotacao[]>([]);
 
-  console.log(isOpnModal);
+
 
   const { anotacoes, adicionarAnotacao, SearchInput, setAnotacoes  } = useAnotacoes(); // Use o hook do contexto
 
@@ -42,11 +42,14 @@ export const Body = ({closeSidebar, isFlexCol} : Porps) => {
     adicionarAnotacao(novaAnotacao); // Adicione a nova anotação através do contexto
     setTitle('');
     setTextInput('');
+
   };
 
   const deletarAnotacao = (id: number) => {
     const novasAnotacoes = anotacoes.filter((val) => val.id !== id);
     setAnotacoes(novasAnotacoes);
+    localStorage.clear();
+
   } 
 
   const filteredAnotacoes = anotacoes.filter((val) => val.text === SearchInput || val.title === SearchInput);
@@ -141,7 +144,7 @@ export const Body = ({closeSidebar, isFlexCol} : Porps) => {
                         
               >
              {
-       anotacoes.map((val) => {
+      anotacoes != [] && anotacoes.map((val) => {
             return (
               <div
                 // onClick={() => setIsOpnModal(!isOpnModal)} 
