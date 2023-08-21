@@ -4,6 +4,8 @@ import React, {useState} from 'react';
 import { useAnotacoes } from '../Context/store';
 import { FaTrash } from 'react-icons/fa';
 import { BiArchiveOut } from 'react-icons/bi';
+import { BsLightbulb } from 'react-icons/bs';
+
 
 type Porps = {
   closeSidebar: boolean;
@@ -77,6 +79,10 @@ export const Body = ({closeSidebar, isFlexCol} : Porps) => {
     
     localStorage.setItem("tarefaArquivadas", JSON.stringify(novasAnotacoesArquivadas));
   }
+
+    const editarAnotacao = (id: number) => {
+      
+    }
   
 
   const filteredAnotacoes = anotacoes.filter((val) => val.text === SearchInput || val.title === SearchInput);
@@ -167,17 +173,33 @@ export const Body = ({closeSidebar, isFlexCol} : Porps) => {
       
               <div
                    className={isFlexCol ? 
-                        'flex flex-col justify-center' 
+                        'flex flex-col justify-center text-center' 
                         :
-                        'flex flex-row flex-wrap'}
+                        'flex flex-row flex-wrap text-center'}
     
                         
               >
              {
-      anotacoes != [] && anotacoes.map((val) => {
+               anotacoes.length === 0?
+               <div
+               className={`flex flex-col justify-center items-center  h-96 
+               ${closeSidebar? ' ml-40':''}`}
+               >
+
+                <BsLightbulb
+                className=' text-[90px] text-[#37383a]'
+
+                ></BsLightbulb>
+                <p
+                className={'text-[#9aa0a6]'}
+
+                >As notas adicionadas são exibidas aqui</p>
+               </div>
+              :
+              anotacoes.map((val) => {
             return (
               <div
-                // onClick={() => setIsOpnModal(!isOpnModal)} 
+                onClick={() => setIsOpnModal(!isOpnModal)} 
                 key={val.id}
                 className='flex border flex-wrap flex-col m-12 w-[200px] 
                            h-96 p-4 rounded-[20px] border-[#5f6368]'
