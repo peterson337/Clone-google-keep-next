@@ -1,6 +1,6 @@
 'use client';
-import React, { createContext, useContext, useState, useEffect } from 'react';
-  import {State}  from "./types/arquivado";
+import React, { createContext, useContext, useState, useEffect, } from 'react';
+  import {State,AnotacoesArquivadas}  from "./types/arquivado";
 
 
 type Anotacao = {
@@ -10,6 +10,7 @@ type Anotacao = {
   isArquivado?: 'notas' | 'arquivar';
   desarquivar?: () => void;
   arquivar?: () => void;
+
 };
 
 type AnotacoesContextType = {
@@ -21,6 +22,8 @@ type AnotacoesContextType = {
   isArquivado?: 'notas' | 'arquivar';
   desarquivar?: () => void;
   arquivar?: () => void;
+  anotacoesArquivadas: AnotacoesArquivadas[], 
+  setAnotacoesArquivadas: (value: AnotacoesArquivadas[]) => void;
 
 };
 
@@ -36,7 +39,9 @@ export const useAnotacoes = () => {
 };
 
 export const AnotacoesProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [anotacoes, setAnotacoes] = useState<Anotacao[]>([]);
+  const [anotacoes, setAnotacoes] = useState<Anotacao[]>([]);
+  const [anotacoesArquivadas, setAnotacoesArquivadas] = useState<AnotacoesArquivadas[]>([]);
+
   const [SearchInput, setSearchInput] = useState('');
 
   const [isArquivado, setIsArquivado] = useState<'notas' | 'arquivar'>('notas');
@@ -54,6 +59,13 @@ export const AnotacoesProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     if (data !== null) {
       setIsArquivado(data as 'notas' | 'arquivar');
     }
+
+    const savedAnotacaoArchhived = localStorage.getItem('tarefaArquivadas');
+    if (savedAnotacaoArchhived !== null) {
+      const parsedAnotacoesRchived = JSON.parse(savedAnotacaoArchhived) as AnotacoesArquivadas[];
+      setAnotacoesArquivadas(parsedAnotacoesRchived);
+    }
+
   }, []);
   
 
@@ -87,7 +99,9 @@ export const AnotacoesProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         setAnotacoes,
         isArquivado,
         desarquivar,
-        arquivar
+        arquivar,
+        anotacoesArquivadas, 
+        setAnotacoesArquivadas,
          }}>
       {children}
     </AnotacoesContext.Provider>

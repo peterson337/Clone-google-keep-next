@@ -3,7 +3,7 @@ import Image from 'next/image'
 import React, {useState} from 'react';
 import { useAnotacoes } from '../Context/store';
 import { FaTrash } from 'react-icons/fa';
-
+import { BiArchiveOut } from 'react-icons/bi';
 
 type Porps = {
   closeSidebar: boolean;
@@ -28,7 +28,13 @@ export const Body = ({closeSidebar, isFlexCol} : Porps) => {
 
 
 
-  const { anotacoes, adicionarAnotacao, SearchInput, setAnotacoes  } = useAnotacoes(); // Use o hook do contexto
+  const { anotacoes, 
+          SearchInput,
+          adicionarAnotacao,
+          setAnotacoes,
+          setAnotacoesArquivadas,
+          anotacoesArquivadas,
+          } = useAnotacoes();
 
   const salvarTarefa = () => {
     const novoId = Date.now();
@@ -48,13 +54,37 @@ export const Body = ({closeSidebar, isFlexCol} : Porps) => {
   const deletarAnotacao = (id: number) => {
     const novasAnotacoes = anotacoes.filter((val) => val.id !== id);
     setAnotacoes(novasAnotacoes);
-    localStorage.clear();
+    localStorage.setItem("tarefa", JSON.stringify(novasAnotacoes));
 
-  } 
+  }
+  
+  //TODO: RESOLVER O BUG DE ARQUIVAR TAREFAS
+
+
+  const arquivarAnotacao = (id: number) => {
+    const novasAnotacoes = anotacoes.map((val) => {
+      if (val.id === id) {
+        val.isArquivado = 'arquivar';
+      }
+      return val;
+    });
+    
+    deletarAnotacao(id);
+  
+    // Aqui, supondo que anotacoesArquivadas é um array
+    const novasAnotacoesArquivadas = [...anotacoesArquivadas, ...novasAnotacoes];
+    setAnotacoesArquivadas(novasAnotacoesArquivadas);
+    
+    localStorage.setItem("tarefaArquivadas", JSON.stringify(novasAnotacoesArquivadas));
+  }
+  
 
   const filteredAnotacoes = anotacoes.filter((val) => val.text === SearchInput || val.title === SearchInput);
+  const filteredAnotacoesArchived = anotacoesArquivadas.filter((val) => val.text === SearchInput || val.title === SearchInput);
 
-  if (filteredAnotacoes.length > 0) {
+  
+
+  if (filteredAnotacoes.length > 0 || filteredAnotacoesArchived.length > 0) {
     return (
       <div className="flex flex-row">
         {filteredAnotacoes.map((val) => (
@@ -155,15 +185,21 @@ export const Body = ({closeSidebar, isFlexCol} : Porps) => {
                 <h1>{val.title}</h1>
                 <p>{val.text}</p>
 
-                  <div
-                    className='grid  gap-4 place-items-end h-96'>
-                  <button
-                  onClick={() => deletarAnotacao(val.id)}
-                  >
-                    <FaTrash></FaTrash>
-                   </button>
-                  </div>
+                
+                <div className='grid grid-cols-2 gap-4 place-items-end h-96'>
+                <button onClick={() => deletarAnotacao(val.id)}>
+                  <FaTrash></FaTrash>
+                </button>
+
+                <button
+                className=''
+                onClick={() => arquivarAnotacao(val.id)}
+                >
+                  <BiArchiveOut/>
+                </button>
               </div>
+
+                  </div>
             );
           })
     }

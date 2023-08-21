@@ -5,7 +5,7 @@ import { Header } from "./components/Header";
 import { Sidebar } from "./components/Sidebar";
 import { Body } from "./components/Body";
 import { useAnotacoes } from './Context/store';
-import { Arquivadas } from './components/Arquivadas';
+      import { Arquivadas } from './components/Arquivadas';
 
 export default function Home() {
         const [closeSidebar, setCloseSidebar] = useState<boolean>(false);
@@ -51,7 +51,10 @@ export default function Home() {
               setIsFlexCol={setIsFlexCol}
             />
           ) : isArquivado === 'arquivar' ? (
-            <Arquivadas />
+            <Arquivadas
+            closeSidebar={closeSidebar}
+
+             />
           ) : (
             <div></div>
           )}
