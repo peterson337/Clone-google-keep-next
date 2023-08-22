@@ -27,6 +27,7 @@ export const Body = ({closeSidebar, isFlexCol} : Porps) => {
   const [title, setTitle] = useState<string>('');
   const [isOpnModal, setIsOpnModal] = useState(false);
   const [anotacao, setAnotacao] = useState<Anotacao[]>([]);
+  console.log(isOpnModal);
 
 
 
@@ -113,7 +114,7 @@ export const Body = ({closeSidebar, isFlexCol} : Porps) => {
   } else {
           // Renderização alternativa se não houver correspondência
           return (
-            <div className="mx-auto">
+            <div className="">
             <div className={closeSidebar ? '	' : ''}>
               
               <div className=' text-white'>
@@ -173,17 +174,18 @@ export const Body = ({closeSidebar, isFlexCol} : Porps) => {
       
               <div
                    className={isFlexCol ? 
-                        'flex flex-col justify-center text-center' 
-                        :
-                        'flex flex-row flex-wrap text-center'}
-    
+                    `flex  flex-wrap text-center justify-center`
+                    :
+                    `flex flex-col justify-center text-center items-center`
+                   }
+                    
                         
               >
              {
                anotacoes.length === 0?
                <div
-               className={`flex flex-col justify-center items-center  h-96 
-               ${closeSidebar? ' ml-40':''}`}
+               className={`flex flex-col justify-center items-center text-center h-96 
+               ${closeSidebar? ' ml-40':' text-center'}`}
                >
 
                 <BsLightbulb
@@ -199,15 +201,17 @@ export const Body = ({closeSidebar, isFlexCol} : Porps) => {
               anotacoes.map((val) => {
             return (
               <div
-                onClick={() => setIsOpnModal(!isOpnModal)} 
-                key={val.id}
+              key={val.id}
+              onClick={() => setIsOpnModal(true)} 
                 className='flex border flex-wrap flex-col m-12 w-[200px] 
                            h-96 p-4 rounded-[20px] border-[#5f6368]'
               >
+
+                <div>
                 <h1>{val.title}</h1>
                 <p>{val.text}</p>
 
-                
+                </div>
                 <div className='grid grid-cols-2 gap-4 place-items-end h-96'>
                 <button onClick={() => deletarAnotacao(val.id)}>
                   <FaTrash></FaTrash>
