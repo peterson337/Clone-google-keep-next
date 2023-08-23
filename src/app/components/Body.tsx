@@ -240,10 +240,16 @@ const controlUseEffect = (id:number) => {
 
               isOpnModal?
               <section
-              className='fixed flex  bg-black bg-opacity-50 justify-center items-center
+              className='fixed flex   bg-black bg-opacity-50 justify-center items-center
                          h-screen  w-screen left-0 top-0'
-             // onClick={closeModal}
+                         onClick={e => {
+                          if (e.target === e.currentTarget) {
+                            // Verifica se o clique ocorreu diretamente no elemento de fundo (section)
+                            closeModal();
+                          }
+                        }}
               >
+                
                     <div
                       className='flex border flex-wrap flex-col m-12 w-[500px] 
                       h-[400px] p-28  rounded-[20px] border-[#5f6368] bg-[#202124]
@@ -256,25 +262,26 @@ const controlUseEffect = (id:number) => {
                     <input
                       value={NewtextInput}
                       onChange={(e) => NewsetTextInput(e.target.value)}
-                      className='text-white bg-blue-900 p-2 '
+                      className='text-white outline-0	 bg-[#202124] p-2 w-[429px]
+                      text-2xl'
                       >
                       </input>
 
                       <br />
 
-                    <input
+                    <textarea
                       value={Newtitle}
                       onChange={(e) => NewsetTitle(e.target.value)}
-                      className='text-white bg-blue-900 '
+                      className='text-white outline-0	 bg-[#202124]  resize-none	p-2 
+                                  w-[429px] h-[249px]'
                       >
 
-                      </input>
+                      </textarea>
 
              
 
-                </div>
                      <div
-                      className='relative  left-36 top-44  grid content-end'
+                      className='relative  left-36 top-2 grid content-end'
                      >
 
                       <div
@@ -292,6 +299,7 @@ const controlUseEffect = (id:number) => {
                       </div>
 
                      </div>
+                </div>
                     </div>
                     </section>
 

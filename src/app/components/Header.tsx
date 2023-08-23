@@ -36,16 +36,19 @@ export const Header = ({
           
         }
       }, [])
+
+
       
   return (
     <div
-    className='flex border-b pb-3 p-4 text-3xl space-x-40'
+    className='flex border-b pb-3 md:p-4 md:text-3xl md:space-x-40
+                '   
     >
        
     
         <button
         onClick={() => setCloseSidebar(!closeSidebar)}
-        className=''
+        className='text-xl'
         >
          <FiMenu/>
         </button>
@@ -55,14 +58,16 @@ export const Header = ({
       >
 
       <img src={`https://www.gstatic.com/images/branding/product/1x/keep_2020q4_48dp.png`}
-         className='text-3xl'
+         className='md:text-3xl w-7'
         />
 
-        <p>Keep</p>
+        <p
+        className='text-xl'
+        >Keep</p>
       </div>
 
         <input type="text"
-        className='mr-3 text-black'
+        className='md:mr-3 text-black'
         onChange={(e) => setSearchInput(e.target.value)}
          />
 
