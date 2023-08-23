@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {FiMenu } from 'react-icons/fi'
 import {BsFillGearFill } from 'react-icons/bs'
 import {SiWindows11 } from 'react-icons/si'
 import { useAnotacoes } from '../Context/store'
+import { parse } from 'node:path/win32'
 
 
 type Porps = {
@@ -20,7 +21,22 @@ export const Header = ({
     isFlexCol
   } : Porps) => {
 
-    const { SearchInput, setSearchInput } = useAnotacoes(); // Use o hook do contexto
+    const { SearchInput, setSearchInput } = useAnotacoes(); 
+
+      const mudar = () => {
+        setIsFlexCol(!isFlexCol);
+
+        localStorage.setItem('isFlexCol', JSON.stringify(!isFlexCol));
+      }
+
+      useEffect(() => {
+        const isFlexCol =  localStorage.getItem('isFlexCol');
+        if (isFlexCol !== null) {
+          setIsFlexCol(JSON.parse(isFlexCol));
+          
+        }
+      }, [])
+      
   return (
     <div
     className='flex border-b pb-3 p-4 text-3xl space-x-40'
@@ -50,7 +66,7 @@ export const Header = ({
         onChange={(e) => setSearchInput(e.target.value)}
          />
 
-        <button onClick={() => setIsFlexCol(!isFlexCol)}>
+        <button onClick={mudar}>
          <SiWindows11/>
         </button>
 

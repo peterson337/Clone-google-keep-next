@@ -4,7 +4,9 @@ import React, {useState} from 'react';
 import { useAnotacoes } from '../Context/store';
 import { FaTrash } from 'react-icons/fa';
 import { BiArchiveOut } from 'react-icons/bi';
-import { BsLightbulb } from 'react-icons/bs';
+import { BsLightbulb, BsFillPencilFill } from 'react-icons/bs';
+import { Modal } from './Modal';
+import { Teste } from '../hook/editarTarefas';
 
 
 type Porps = {
@@ -15,7 +17,7 @@ type Porps = {
 }
 
 type Anotacao = {
-  id: number;
+  id: number | undefined;
   title: string;
   text: string;
 };
@@ -25,11 +27,19 @@ export const Body = ({closeSidebar, isFlexCol} : Porps) => {
   const [input, setInput] = useState<boolean>(false);
   const [textInput, setTextInput] = useState<string>('');
   const [title, setTitle] = useState<string>('');
-  const [isOpnModal, setIsOpnModal] = useState(false);
   const [anotacao, setAnotacao] = useState<Anotacao[]>([]);
-  console.log(isOpnModal);
-
-
+  const {
+    isOpnModal,
+    NewtextInput,
+    Newtitle,
+    openModal,
+    closeModal,
+    setfirst,
+    NewsetTextInput,
+    NewsetTitle,
+  
+  
+   } = Teste()
 
   const { anotacoes, 
           SearchInput,
@@ -37,6 +47,12 @@ export const Body = ({closeSidebar, isFlexCol} : Porps) => {
           setAnotacoes,
           setAnotacoesArquivadas,
           anotacoesArquivadas,
+          editarTarefas, 
+          setEditarTarefas,
+          id,
+          setId,
+          atualizarTarefaEditada,
+          
           } = useAnotacoes();
 
   const salvarTarefa = () => {
@@ -48,7 +64,7 @@ export const Body = ({closeSidebar, isFlexCol} : Porps) => {
       text: textInput,
     };
 
-    adicionarAnotacao(novaAnotacao); // Adicione a nova anotação através do contexto
+    adicionarAnotacao(novaAnotacao); 
     setTitle('');
     setTextInput('');
 
@@ -81,17 +97,41 @@ export const Body = ({closeSidebar, isFlexCol} : Porps) => {
     localStorage.setItem("tarefaArquivadas", JSON.stringify(novasAnotacoesArquivadas));
   }
 
-    const editarAnotacao = (id: number) => {
-      
-    }
   
 
   const filteredAnotacoes = anotacoes.filter((val) => val.text === SearchInput || val.title === SearchInput);
   const filteredAnotacoesArchived = anotacoesArquivadas.filter((val) => val.text === SearchInput || val.title === SearchInput);
 
+  const editarAnotacao = (id:number) => {
+
+    closeModal();
+    anotacoes.filter((val) => {
+        const tarefaEditada = { 
+          id: id,
+          text: NewtextInput,
+         title: Newtitle, 
+        }
+        atualizarTarefaEditada (tarefaEditada);
+       // localStorage.setItem("tarefa", JSON.stringify(tarefaEditada));
+
+     
+   })
+    
   
 
-  if (filteredAnotacoes.length > 0 || filteredAnotacoesArchived.length > 0) {
+}
+
+const controlUseEffect = (id:number) => {
+  openModal();
+  const anotacaoAtual = anotacoes.find(anotacao => anotacao.id === id);
+  if (anotacaoAtual) {
+      NewsetTitle(anotacaoAtual.title);
+      NewsetTextInput(anotacaoAtual.text);
+      setId(anotacaoAtual.id);
+  }
+}
+
+  if (filteredAnotacoes.length > 0) {
     return (
       <div className="flex flex-row">
         {filteredAnotacoes.map((val) => (
@@ -112,7 +152,6 @@ export const Body = ({closeSidebar, isFlexCol} : Porps) => {
       </div>
     );
   } else {
-          // Renderização alternativa se não houver correspondência
           return (
             <div className="">
             <div className={closeSidebar ? '	' : ''}>
@@ -198,11 +237,70 @@ export const Body = ({closeSidebar, isFlexCol} : Porps) => {
                 >As notas adicionadas são exibidas aqui</p>
                </div>
               :
+
+              isOpnModal?
+              <section
+              className='fixed flex  bg-black bg-opacity-50 justify-center items-center
+                         h-screen  w-screen left-0 top-0'
+             // onClick={closeModal}
+              >
+                    <div
+                      className='flex border flex-wrap flex-col m-12 w-[500px] 
+                      h-[400px] p-28  rounded-[20px] border-[#5f6368] bg-[#202124]
+                      content-start'
+                      >
+
+                 <div
+                      className='flex flex-col items-center relative bottom-20 right-20'
+                >  
+                    <input
+                      value={NewtextInput}
+                      onChange={(e) => NewsetTextInput(e.target.value)}
+                      className='text-white bg-blue-900 p-2 '
+                      >
+                      </input>
+
+                      <br />
+
+                    <input
+                      value={Newtitle}
+                      onChange={(e) => NewsetTitle(e.target.value)}
+                      className='text-white bg-blue-900 '
+                      >
+
+                      </input>
+
+             
+
+                </div>
+                     <div
+                      className='relative  left-36 top-44  grid content-end'
+                     >
+
+                      <div
+                      className='flex flex-row justify-end items-end space-x-10'
+                      >
+                      <button
+                      onClick={()=>editarAnotacao(id)}
+                      >salvar</button>
+                     <button
+                     
+                    onClick={closeModal}
+              
+                      >fechar
+                    </button>
+                      </div>
+
+                     </div>
+                    </div>
+                    </section>
+
+              :
+
               anotacoes.map((val) => {
             return (
-              <div
+              <section
               key={val.id}
-              onClick={() => setIsOpnModal(true)} 
                 className='flex border flex-wrap flex-col m-12 w-[200px] 
                            h-96 p-4 rounded-[20px] border-[#5f6368]'
               >
@@ -212,8 +310,10 @@ export const Body = ({closeSidebar, isFlexCol} : Porps) => {
                 <p>{val.text}</p>
 
                 </div>
-                <div className='grid grid-cols-2 gap-4 place-items-end h-96'>
-                <button onClick={() => deletarAnotacao(val.id)}>
+                <div className='h-72 grid  content-end'>
+               <div
+                className='flex flex-row justify-between items-center place-items-end  '               >
+               <button onClick={() => deletarAnotacao(val.id)}>
                   <FaTrash></FaTrash>
                 </button>
 
@@ -223,9 +323,18 @@ export const Body = ({closeSidebar, isFlexCol} : Porps) => {
                 >
                   <BiArchiveOut/>
                 </button>
+
+                <button
+                  onClick={()=>controlUseEffect(val.id)} 
+              >
+                  <BsFillPencilFill></BsFillPencilFill>
+                </button>
+               </div>
               </div>
 
-                  </div>
+                  </section>
+
+                  //!   () => editarAnotacao(val.id)
             );
           })
     }

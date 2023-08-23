@@ -6,6 +6,7 @@ import { useAnotacoes } from '../Context/store';
 
 export const Sidebar = () => {
   const { desarquivar, arquivar } = useAnotacoes(); 
+
   
   return (
     <div>

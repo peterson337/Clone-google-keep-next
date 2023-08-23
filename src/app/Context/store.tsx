@@ -24,12 +24,18 @@ type AnotacoesContextType = {
   arquivar?: () => void;
   anotacoesArquivadas: AnotacoesArquivadas[], 
   setAnotacoesArquivadas: (value: AnotacoesArquivadas[]) => void;
-
+  editarTarefas: string,
+  setEditarTarefas: (value: string) => void;  
+  id: number,
+  setId: (value: number) => void;
+  atualizarTarefaEditada : (tarefaEditada: Anotacao) => void;
 };
 
 const AnotacoesContext = createContext<AnotacoesContextType | undefined>(undefined);
 
 export const useAnotacoes = () => {
+
+  
 
   const context = useContext(AnotacoesContext);
   if (!context) {
@@ -46,6 +52,10 @@ export const AnotacoesProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
   const [isArquivado, setIsArquivado] = useState<'notas' | 'arquivar'>('notas');
 
+  const [editarTarefas, setEditarTarefas] = useState('');
+
+  const [id, setId] = useState<number>(0);
+  
 
 
   useEffect(() => {
@@ -66,6 +76,8 @@ export const AnotacoesProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       setAnotacoesArquivadas(parsedAnotacoesRchived);
     }
 
+    
+
   }, []);
   
 
@@ -79,9 +91,15 @@ export const AnotacoesProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     localStorage.setItem('estado', 'arquivar');
   }
   
+  const atualizarTarefaEditada = (tarefaEditada: Anotacao) => {
+    const savedAnotacoes = anotacoes.map(tarefa => tarefa.id === tarefaEditada.id ? tarefaEditada : tarefa)
+    setAnotacoes(savedAnotacoes);
+     localStorage.setItem("tarefa", JSON.stringify(savedAnotacoes));
+  }
   
 
   const adicionarAnotacao = (novaAnotacao: Anotacao) => {
+
     setAnotacoes([...anotacoes, novaAnotacao]);
    const localStoragNovaAnotacao = ([...anotacoes, novaAnotacao])
    localStorage.setItem("tarefa", JSON.stringify(localStoragNovaAnotacao));
@@ -102,6 +120,11 @@ export const AnotacoesProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         arquivar,
         anotacoesArquivadas, 
         setAnotacoesArquivadas,
+        editarTarefas, 
+        setEditarTarefas,
+        id,
+        setId,
+        atualizarTarefaEditada 
          }}>
       {children}
     </AnotacoesContext.Provider>
