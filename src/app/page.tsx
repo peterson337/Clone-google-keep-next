@@ -32,7 +32,7 @@ export default function Home() {
       />
 
      <div
-     className={closeSidebar ? 'md:flex	' : ''}>
+     className={closeSidebar ? 'md:flex 	' : ''}>
      
 
      { closeSidebar?

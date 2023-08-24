@@ -156,12 +156,13 @@ const controlUseEffect = (id:number) => {
             <div className="">
             <div className={closeSidebar ? '	' : ''}>
               
-              <div className=' text-white'>
+              <section className=' text-white pt-5'>
               {input ? (
-                <div className="flex justify-center mt-5">
+                <div className="md:flex md:justify-center md:mt-5
+                                grow shrink">
                   <input
                     type="text"
-                    className={' p-2 w-[600px] border-2 bg-[#202124]'}
+                    className={' p-2 md:w-[600px] border-2 bg-[#202124] shrink w-80'}
                     onChange={(e) => setTitle(e.target.value)}
                     value={title}
                     placeholder="Titulo"
@@ -176,7 +177,7 @@ const controlUseEffect = (id:number) => {
               <div className="flex justify-center">
                 <input
                   type="text"
-                  className={' p-2 w-[600px] mb-5 border-2 bg-[#202124]'}
+                  className={' p-2 md:w-[600px] mb-5 border-2 bg-[#202124] shrink w-80 mr-14 md:ml-14'}
                   onChange={(e) => setTextInput(e.target.value)}
                   value={textInput}
                   placeholder="Criar uma nota..."
@@ -189,7 +190,7 @@ const controlUseEffect = (id:number) => {
                 <div className=' relative'>
                    <div className="flex bg-[#202124]
                                     mx-[410px] py-5 relative bottom-5
-                                     border-2">
+                                     border-2 ">
                   <button 
                   className='right-30'
                    onClick={salvarTarefa}
@@ -208,7 +209,7 @@ const controlUseEffect = (id:number) => {
               ) : (
                 <div></div>
               )}
-              </div>
+              </section>
               
       
               <div
