@@ -189,8 +189,9 @@ const controlUseEffect = (id:number) => {
               {input ? (
                 <div className=' relative'>
                    <div className="flex bg-[#202124]
-                                    mx-[410px] py-5 relative bottom-5
-                                     border-2 ">
+                                    md:mx-[410px] md:py-5 md:relative md:bottom-5
+                                     border-2
+                                     bottom-1 ">
                   <button 
                   className='right-30'
                    onClick={salvarTarefa}
@@ -202,9 +203,6 @@ const controlUseEffect = (id:number) => {
     
                 </div>
     
-                <div>
-                  
-                </div>
                 </div>
               ) : (
                 <div></div>
@@ -252,19 +250,21 @@ const controlUseEffect = (id:number) => {
               >
                 
                     <div
-                      className='flex border flex-wrap flex-col m-12 w-[500px] 
-                      h-[400px] p-28  rounded-[20px] border-[#5f6368] bg-[#202124]
-                      content-start'
+                      className='md:flex border md:flex-wrap md:flex-col md:m-12 md:w-[500px] 
+                      md:h-[400px] md:p-28  rounded-[20px] border-[#5f6368] bg-[#202124]
+                      content-start
+                      shrink '
                       >
 
                  <div
-                      className='flex flex-col items-center relative bottom-20 right-20'
+                      className='flex flex-col md:items-center relative md:bottom-20 md:right-20
+                                 p-8 md:p-0'
                 >  
                     <input
                       value={NewtextInput}
                       onChange={(e) => NewsetTextInput(e.target.value)}
-                      className='text-white outline-0	 bg-[#202124] p-2 w-[429px]
-                      text-2xl'
+                      className='text-white outline-0	 bg-[#202124] p-2 md:w-[429px]
+                      md:text-2xl  w-72'
                       >
                       </input>
 
@@ -273,8 +273,8 @@ const controlUseEffect = (id:number) => {
                     <textarea
                       value={Newtitle}
                       onChange={(e) => NewsetTitle(e.target.value)}
-                      className='text-white outline-0	 bg-[#202124]  resize-none	p-2 
-                                  w-[429px] h-[249px]'
+                      className='text-white outline-0	 bg-[#202124]  resize-none	md:p-2 
+                                  md:w-[429px] md:h-[249px]  h-60'
                       >
 
                       </textarea>
@@ -282,7 +282,8 @@ const controlUseEffect = (id:number) => {
              
 
                      <div
-                      className='relative  left-36 top-2 grid content-end'
+                      className='relative  md:left-36 md:top-0  md:bottom-0 grid content-end
+                                  top-4 '
                      >
 
                       <div

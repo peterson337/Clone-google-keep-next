@@ -42,7 +42,7 @@ export const Header = ({
   return (
     <div
     className='flex border-b pb-3 md:p-4 md:text-3xl md:justify-center grow  
-                space-x-2 md:space-x-10'   
+                space-x-6 md:space-x-10 p-3'   
     >
        
     
