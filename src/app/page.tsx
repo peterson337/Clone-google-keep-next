@@ -31,8 +31,7 @@ export default function Home() {
       setIsFlexCol={setIsFlexCol}
       />
 
-     <div
-     className={closeSidebar ? 'md:flex 	' : ''}>
+     <section>
      
 
      { closeSidebar?
@@ -52,7 +51,8 @@ export default function Home() {
               setIsFlexCol={setIsFlexCol}
             />
           ) : isArquivado === 'arquivar' ? (
-            <Arquivadas
+       
+             <Arquivadas
             closeSidebar={closeSidebar}
 
              />
@@ -61,7 +61,7 @@ export default function Home() {
           )}
 
           
-     </div>
+     </section>
 
 
       </div>

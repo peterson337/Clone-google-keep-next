@@ -77,24 +77,23 @@ export const Body = ({closeSidebar, isFlexCol} : Porps) => {
 
   }
   
-  //TODO: RESOLVER O BUG DE ARQUIVAR TAREFAS
 
 
   const arquivarAnotacao = (id: number) => {
-    const novasAnotacoes = anotacoes.map((val) => {
-      if (val.id === id) {
-        val.isArquivado = 'arquivar';
-      }
-      return val;
-    });
-    
-    deletarAnotacao(id);
-  
-    // Aqui, supondo que anotacoesArquivadas é um array
+    const novasAnotacoes = anotacoes.filter((val) => val.id === id)
+      if (novasAnotacoes) {
+     
+        deletarAnotacao(id);
+           // Aqui, supondo que anotacoesArquivadas é um array
     const novasAnotacoesArquivadas = [...anotacoesArquivadas, ...novasAnotacoes];
     setAnotacoesArquivadas(novasAnotacoesArquivadas);
     
     localStorage.setItem("tarefaArquivadas", JSON.stringify(novasAnotacoesArquivadas));
+      }
+
+    
+  
+ 
   }
 
   
@@ -135,19 +134,40 @@ const controlUseEffect = (id:number) => {
     return (
       <div className="flex flex-row">
         {filteredAnotacoes.map((val) => (
-          <div 
-            key={val.id}
-            className='flex border flex-wrap flex-col m-12 w-[200px] 
-                       h-96 p-4 rounded-[20px] border-[#5f6368]'
-          >
-            <h1>{val.title}</h1>
-            <p>{val.text}</p>
-            <button
-                  onClick={() => deletarAnotacao(val.id)}
-                  >
-                    <FaTrash></FaTrash>
-                   </button>
-          </div>
+    <section
+    key={val.id}
+      className='flex border flex-wrap flex-col m-12 w-[200px] 
+                 h-96 p-4 rounded-[20px] border-[#5f6368]'
+    >
+
+      <div>
+      <h1>{val.title}</h1>
+      <p>{val.text}</p>
+
+      </div>
+      <div className='h-72 grid  content-end'>
+     <div
+      className='flex flex-row justify-between items-center place-items-end  '               >
+     <button onClick={() => deletarAnotacao(val.id)}>
+        <FaTrash></FaTrash>
+      </button>
+
+      <button
+      className=''
+      onClick={() => arquivarAnotacao(val.id)}
+      >
+        <BiArchiveOut/>
+      </button>
+
+      <button
+        onClick={()=>controlUseEffect(val.id)} 
+    >
+        <BsFillPencilFill></BsFillPencilFill>
+      </button>
+     </div>
+    </div>
+
+        </section>
         ))}
       </div>
     );

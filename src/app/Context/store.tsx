@@ -1,6 +1,7 @@
 'use client';
 import React, { createContext, useContext, useState, useEffect, } from 'react';
-  import {State,AnotacoesArquivadas}  from "./types/arquivado";
+  import {State, AnotacoesArquivadas}  from "./types/arquivado";
+
 
 
 type Anotacao = {
@@ -10,12 +11,12 @@ type Anotacao = {
   isArquivado?: 'notas' | 'arquivar';
   desarquivar?: () => void;
   arquivar?: () => void;
-
 };
 
 type AnotacoesContextType = {
   anotacoes: Anotacao[];
   adicionarAnotacao: (novaAnotacao: Anotacao) => void;
+  adicionarAnotacaoArquivada: (novaAnotacaoArquivada: AnotacoesArquivadas) =>  void;
   SearchInput: string;
   setSearchInput: (value: string) => void;
   setAnotacoes: (value: Anotacao[]) => void;
@@ -98,13 +99,19 @@ export const AnotacoesProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   }
   
 
-  const adicionarAnotacao = (novaAnotacao: Anotacao) => {
+  const adicionarAnotacao = (novaAnotacao: Anotacao  ) => {
 
     setAnotacoes([...anotacoes, novaAnotacao]);
    const localStoragNovaAnotacao = ([...anotacoes, novaAnotacao])
    localStorage.setItem("tarefa", JSON.stringify(localStoragNovaAnotacao));
 
   };
+
+  const adicionarAnotacaoArquivada = (novaAnotacaoArquivada: AnotacoesArquivadas) => {
+    setAnotacoes([...anotacoes, novaAnotacaoArquivada]);
+    const localStoragNovaAnotacao = ([...anotacoes, novaAnotacaoArquivada])
+   localStorage.setItem("tarefa", JSON.stringify(localStoragNovaAnotacao));
+  }
 
 
 
@@ -124,7 +131,8 @@ export const AnotacoesProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         setEditarTarefas,
         id,
         setId,
-        atualizarTarefaEditada 
+        atualizarTarefaEditada,
+        adicionarAnotacaoArquivada 
          }}>
       {children}
     </AnotacoesContext.Provider>

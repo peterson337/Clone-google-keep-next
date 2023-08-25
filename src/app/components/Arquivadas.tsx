@@ -7,7 +7,7 @@ import { Porps } from "../types/closeSideBar";
 
 export const Arquivadas = ({closeSidebar}:Porps) => {
 
-  const { anotacoesArquivadas, setAnotacoesArquivadas, anotacoes, setAnotacoes} = useAnotacoes();
+  const { anotacoesArquivadas, setAnotacoesArquivadas, anotacoes, setAnotacoes, adicionarAnotacaoArquivada} = useAnotacoes();
 
   const deletarAnotacao = (id: number) => {
     const novasAnotacoes = anotacoesArquivadas.filter((val) => val.id !== id);
@@ -16,29 +16,28 @@ export const Arquivadas = ({closeSidebar}:Porps) => {
 
   }
 
-  //TODO: RESOLVER O BUG DE ARQUIVAR TAREFAS
 
   const desarquivarArquivarAnotacao = (id: number) => {
-    const novasAnotacoes = anotacoesArquivadas.map((val) => {
-      if (val.id === id) {
-        val.isArquivado = 'arquivar';
-      }
-      return val;
-    });
-    const novasAnotacoesArray = [...anotacoes, ...novasAnotacoes];
-    setAnotacoes(novasAnotacoesArray);
-    deletarAnotacao(id)
-    localStorage.setItem("tarefa", JSON.stringify(novasAnotacoes));
- 
+    const novasAnotacoes = anotacoesArquivadas.filter((val) => val.id === id);
+    if (novasAnotacoes.length > 0) {
+      const novaAnotacaoArquivada = novasAnotacoes[0];
+      deletarAnotacao(id)
+  
+      adicionarAnotacaoArquivada(novaAnotacaoArquivada);
+
+    } 
   }
+  
 
   return (
-    <div>
+    <div
+          className='flex justify-center items-center gap-4 flex-wrap'
+    >
       {
         anotacoesArquivadas.length === 0 ? (
           <div
-          className={`flex flex-col justify-center items-center h-96 
-                    ${closeSidebar? ' ml-40':''}`}
+          className={`flex flex-col justify-center items-center h-96 `}
+
           >
                 <BiArchiveOut
                 className=' text-[90px] text-[#37383a]'
@@ -55,27 +54,30 @@ export const Arquivadas = ({closeSidebar}:Porps) => {
         anotacoesArquivadas.map((val) => {
             return(
               <div
-              // onClick={() => setIsOpnModal(!isOpnModal)} 
               key={val.id}
-              className='flex border flex-wrap flex-col m-12 w-[200px] 
-                         h-96 p-4 rounded-[20px] border-[#5f6368]'
+              className='flex border flex-wrap flex-col  w-[200px] 
+              h-96 p-4 rounded-[20px] border-[#5f6368] mt-14'
             >
               <h1>{val.title}</h1>
               <p>{val.text}</p>
 
               
-              <div className='grid grid-cols-2 gap-4 place-items-end h-96'>
-              <button onClick={() => deletarAnotacao(val.id)}>
-                <FaTrash></FaTrash>
-              </button>
+           <div className='h-72 grid  content-end'>
+               <div
+                className='flex flex-row justify-between items-center place-items-end  '               >
+               <button onClick={() => deletarAnotacao(val.id)}>
+                  <FaTrash></FaTrash>
+                </button>
 
-              <button
-              className=''
-              onClick={() => desarquivarArquivarAnotacao(val.id)}
-              >
-                <BiArchiveOut/>
-              </button>
-            </div>
+                <button
+                className=''
+                onClick={() => desarquivarArquivarAnotacao(val.id)}
+                >
+                  <BiArchiveOut/>
+                </button>
+
+               </div>
+              </div>
 
                 </div>
             )
