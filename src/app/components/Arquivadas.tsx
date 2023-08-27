@@ -7,7 +7,13 @@ import { Porps } from "../types/closeSideBar";
 
 export const Arquivadas = ({closeSidebar}:Porps) => {
 
-  const { anotacoesArquivadas, setAnotacoesArquivadas, anotacoes, setAnotacoes, adicionarAnotacaoArquivada} = useAnotacoes();
+  const { anotacoesArquivadas,
+         setAnotacoesArquivadas,
+          anotacoes,
+          setAnotacoes,
+          adicionarAnotacaoArquivada,
+          SearchInput,
+          } = useAnotacoes();
 
   const deletarAnotacao = (id: number) => {
     const novasAnotacoes = anotacoesArquivadas.filter((val) => val.id !== id);
@@ -28,11 +34,60 @@ export const Arquivadas = ({closeSidebar}:Porps) => {
     } 
   }
   
+  const filteredAnotacoesArchived = anotacoesArquivadas.filter((val) => val.text === SearchInput || val.title === SearchInput);
 
+if (filteredAnotacoesArchived.length > 0) {
+
+
+ return(
+  <section
+      className='flex justify-center items-center gap-4 flex-wrap'
+  >
+    
+  {
+    filteredAnotacoesArchived.map((val) => {
+      return(
+        <section
+        className='flex border flex-wrap flex-col  w-[200px] 
+        h-96 p-4 rounded-[20px] border-[#5f6368] mt-14
+        '
+        key={val.id}
+        >
+          <h1>{val.title}</h1>
+          <p>{val.text}</p>
+
+          <div className='h-72 grid  content-end'>
+               <div
+                className='flex flex-row justify-between items-center place-items-end  '               >
+               <button onClick={() => deletarAnotacao(val.id)}>
+                  <FaTrash></FaTrash>
+                </button>
+
+                <button
+                className=''
+                onClick={() => desarquivarArquivarAnotacao(val.id)}
+                >
+                  <BiArchiveOut/>
+                </button>
+
+               </div>
+              </div>
+        </section>
+      )
+    })}
+</section>
+  
+ )
+
+}else{
   return (
+
     <div
           className='flex justify-center items-center gap-4 flex-wrap'
     >
+
+            
+      
       {
         anotacoesArquivadas.length === 0 ? (
           <div
@@ -85,4 +140,6 @@ export const Arquivadas = ({closeSidebar}:Porps) => {
       }
     </div>
   )
+  
+}
 }

@@ -99,7 +99,6 @@ export const Body = ({closeSidebar, isFlexCol} : Porps) => {
   
 
   const filteredAnotacoes = anotacoes.filter((val) => val.text === SearchInput || val.title === SearchInput);
-  const filteredAnotacoesArchived = anotacoesArquivadas.filter((val) => val.text === SearchInput || val.title === SearchInput);
 
   const editarAnotacao = (id:number) => {
 
