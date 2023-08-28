@@ -1,9 +1,13 @@
 import React, { useEffect } from 'react'
 import {FiMenu } from 'react-icons/fi'
 import {BsFillGearFill } from 'react-icons/bs'
-import {SiWindows11 } from 'react-icons/si'
+import {BsGrid } from 'react-icons/bs'
+import { MdViewList } from 'react-icons/md'
+
 import { useAnotacoes } from '../Context/store'
 import { parse } from 'node:path/win32'
+import { SideBar } from '../hook/sideBar'
+
 
 
 type Porps = {
@@ -23,6 +27,8 @@ export const Header = ({
 
     const { SearchInput, setSearchInput } = useAnotacoes(); 
 
+
+
       const mudar = () => {
         setIsFlexCol(!isFlexCol);
 
@@ -37,7 +43,7 @@ export const Header = ({
         }
       }, [])
 
-
+    
       
   return (
     <div
@@ -54,7 +60,7 @@ export const Header = ({
         </button>
 
       <div
-      className='flex flex-row'
+      className='flex flex-row items-center'
       >
 
       <img src={`https://www.gstatic.com/images/branding/product/1x/keep_2020q4_48dp.png`}
@@ -77,7 +83,14 @@ export const Header = ({
         <button onClick={mudar}
         className=' hidden md:block'
         >
-         <SiWindows11/>
+
+          {
+            isFlexCol?
+            <MdViewList/>
+            :
+            <BsGrid/>
+          }
+         
         </button>
 
         {/* <button

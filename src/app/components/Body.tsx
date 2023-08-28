@@ -70,6 +70,7 @@ export const Body = ({closeSidebar, isFlexCol} : Porps) => {
     adicionarAnotacao(novaAnotacao); 
     setTitle('');
     setTextInput('');
+    setInput(false);
 
   };
 
@@ -101,44 +102,61 @@ export const Body = ({closeSidebar, isFlexCol} : Porps) => {
 
   
 
-  const filteredAnotacoes = anotacoes.filter((val) => val.text === SearchInput || val.title === SearchInput);
-
+  
   const editarAnotacao = (id:number) => {
-
+    
     closeModal();
     anotacoes.filter((val) => {
-        const tarefaEditada = { 
-          id: id,
-          text: NewtextInput,
-         title: Newtitle, 
-        }
-        atualizarTarefaEditada (tarefaEditada);
-       // localStorage.setItem("tarefa", JSON.stringify(tarefaEditada));
-
-     
-   })
+      const tarefaEditada = { 
+        id: id,
+        text: NewtextInput,
+        title: Newtitle, 
+      }
+      atualizarTarefaEditada (tarefaEditada);
+      // localStorage.setItem("tarefa", JSON.stringify(tarefaEditada));
+      
+      
+    })
     
+    
+    
+  }
   
-
-}
-
-
-    const fecharInput = () => {
-      setInput(false);}
-
-const controlUseEffect = (id:number) => {
-  openModal();
-  const anotacaoAtual = anotacoes.find(anotacao => anotacao.id === id);
-  if (anotacaoAtual) {
+  
+  const controlUseEffect = (id:number) => {
+    openModal();
+    const anotacaoAtual = anotacoes.find(anotacao => anotacao.id === id);
+    if (anotacaoAtual) {
       NewsetTitle(anotacaoAtual.title);
       NewsetTextInput(anotacaoAtual.text);
       setId(anotacaoAtual.id);
+    }
   }
-}
 
-  if (filteredAnotacoes.length > 0) {
+const refOne = useRef<HTMLDivElement | null>(null);
+
+
+const handlerClickOutiside = (e: any) => {
+  if (refOne.current && !refOne.current.contains(e.target)) {
+    setInput(false);
+  } 
+};
+
+useEffect(() => {
+  document.addEventListener('click', handlerClickOutiside, true);
+  return () => {
+    document.removeEventListener('click', handlerClickOutiside, true);
+  };
+}, []);
+
+const filteredAnotacoes = anotacoes.filter((val) => val.text === SearchInput || val.title === SearchInput);
+
+if (SearchInput.length > 0) {
     return (
-      <div className="flex flex-row">
+      <section
+      className={`flex  items-center ${isFlexCol ? 'flex-col md:flex-row' : ' flex-col'}`}
+       >
+      
         {filteredAnotacoes.map((val) => (
     <section
     key={val.id}
@@ -165,17 +183,13 @@ const controlUseEffect = (id:number) => {
         <BiArchiveOut/>
       </button>
 
-      <button
-        onClick={()=>controlUseEffect(val.id)} 
-    >
-        <BsFillPencilFill></BsFillPencilFill>
-      </button>
      </div>
     </div>
 
         </section>
         ))}
-      </div>
+
+      </section>
     );
   } else {
           return (
@@ -184,20 +198,22 @@ const controlUseEffect = (id:number) => {
             
             className={closeSidebar ? '	' : ''}>
 
+                <br />
 
-                <div
+                <section
 
                 >
                 {input?
                  <section
-                 className={`md:justify-center md:align-center md:flex  z-[9999]`}
+                 className={`md:justify-center md:align-center md:flex `}
                  
                  >
 
                   <div
                   className={`flex flex-col  border border-[#5f6368]  rounded-lg 
-                  mt-10 md:w-[700px] mx-7
+                   md:w-[700px] mx-7
                   `}
+                  ref={refOne}
                   
                   
                   >
@@ -251,14 +267,14 @@ const controlUseEffect = (id:number) => {
                     </section>  
                 }
               
-                </div>
+                </section>
              
 
               
       
               <div
                    className={isFlexCol ? 
-                    `flex  flex-wrap text-center justify-center`
+                    `flex  flex-wrap text-center `
                     :
                     `flex flex-col justify-center text-center items-center`
                    }
@@ -311,6 +327,8 @@ const controlUseEffect = (id:number) => {
                       onChange={(e) => NewsetTextInput(e.target.value)}
                       className='text-white outline-0	 bg-[#202124] p-2 md:w-[429px]
                       md:text-2xl  w-72'
+                      placeholder='Titulo'
+
                       >
                       </input>
 
@@ -321,8 +339,10 @@ const controlUseEffect = (id:number) => {
                       onChange={(e) => NewsetTitle(e.target.value)}
                       className='text-white outline-0	 bg-[#202124]  resize-none	md:p-2 
                                   md:w-[429px] md:h-[249px]  h-60'
-                      >
+                    placeholder='Criar uma nota...'
 
+                      >
+                      
                       </textarea>
 
              
@@ -390,7 +410,6 @@ const controlUseEffect = (id:number) => {
 
                   </section>
 
-                  //!   () => editarAnotacao(val.id)
             );
           })
     }

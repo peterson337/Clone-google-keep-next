@@ -8,7 +8,6 @@ import { BsLightbulb } from 'react-icons/bs';
 export const Sidebar = () => {
   const { desarquivar, arquivar, isArquivado } = useAnotacoes(); 
 
-
   return (
     <section>
       <div className=' bg-[#202124] md:w-96  flex flex-col

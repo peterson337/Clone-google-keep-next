@@ -42,7 +42,7 @@ if (filteredAnotacoesArchived.length > 0) {
 
  return(
   <section
-      className={`flex  justify-center ${isFlexCol? 'flex-row' : ' flex-col'} items-center gap-4 flex-wrap`}
+      className={`flex  ${isFlexCol? 'flex-row' : ' flex-col'} items-center gap-16 flex-wrap`}
   >
     
   {
@@ -84,7 +84,7 @@ if (filteredAnotacoesArchived.length > 0) {
   return (
 
     <div
-          className={`flex justify-center items-center gap-4 flex-wrap ${isFlexCol? 'flex-row' : ' flex-col'} `}
+          className={`flex items-center gap-28 flex-wrap ${isFlexCol? 'flex-row ml-8' : ' flex-col'} `}
     >
 
             

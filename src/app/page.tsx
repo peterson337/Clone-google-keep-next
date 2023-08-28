@@ -15,9 +15,10 @@ export default function Home() {
         useEffect(() => { 
       }, [isArquivado]);
 
+        closeSidebar? document.body.style.overflow = 'hidden': document.body.style.overflow = 'auto';
+
   return (
     <main
-    className=''
     >
 
       <div
@@ -33,10 +34,18 @@ export default function Home() {
 
      <section>
      
-
+      
      { closeSidebar?
-        <Sidebar
+
+      <section>
+       <Sidebar
         />
+
+        <div
+        className=' bg-transparent p-1 h-screen z-50 fixed top-25 md:w-[900px] right-0 w-36'
+        onClick={() => setCloseSidebar(!closeSidebar)}
+        ></div>
+      </section>
 
         :
 
