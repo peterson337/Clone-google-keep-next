@@ -7,18 +7,14 @@ import { useAnotacoes } from './Context/store';
 import { Arquivadas } from './components/Arquivadas';
 import { Sidebar } from "./components/Sidebar";
 
-export default function Home({document} : any) {
+export default function Home() {
         const [closeSidebar, setCloseSidebar] = useState<boolean>(false);
         const [isFlexCol, setIsFlexCol] = useState<boolean>(false);
         const { isArquivado } = useAnotacoes(); 
         useEffect(() => { 
       }, [isArquivado]);
 
-      useEffect(() => {
-        closeSidebar
-          ? (document.body.style.overflow = 'hidden')
-          : (document.body.style.overflow = 'auto');
-      }, [closeSidebar]);
+
 
   return (
     <main
