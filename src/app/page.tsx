@@ -6,9 +6,9 @@ import { Body } from "./components/Body";
 import { useAnotacoes } from './Context/store';
 import { Arquivadas } from './components/Arquivadas';
 import { Sidebar } from "./components/Sidebar";
+import { Documents } from "./types/document";
 
-
-export default function Home() {
+export default function Home({document} : any) {
         const [closeSidebar, setCloseSidebar] = useState<boolean>(false);
         const [isFlexCol, setIsFlexCol] = useState<boolean>(false);
         const { isArquivado } = useAnotacoes(); 
