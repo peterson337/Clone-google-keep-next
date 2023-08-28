@@ -6,6 +6,7 @@ import { Body } from "./components/Body";
 import { useAnotacoes } from './Context/store';
 import { Arquivadas } from './components/Arquivadas';
 import { Sidebar } from "./components/Sidebar";
+import { Documents } from "./types/document";
 
 export default function Home() {
         const [closeSidebar, setCloseSidebar] = useState<boolean>(false);
@@ -14,7 +15,15 @@ export default function Home() {
         useEffect(() => { 
       }, [isArquivado]);
 
-
+      useEffect(() => {
+        if (typeof window !== 'undefined') {
+          if (closeSidebar) {
+            document.body.style.overflow = 'hidden';
+          } else {
+            document.body.style.overflow = 'auto';
+          }
+        }
+      }, [closeSidebar]);
 
   return (
     <main
