@@ -54,6 +54,8 @@ export default function Home() {
        
              <Arquivadas
             closeSidebar={closeSidebar}
+            isFlexCol={isFlexCol}
+            setIsFlexCol={setIsFlexCol}
 
              />
           ) : (

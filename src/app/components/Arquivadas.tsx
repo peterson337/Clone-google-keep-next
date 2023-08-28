@@ -5,7 +5,8 @@ import { FaTrash } from 'react-icons/fa';
 import { BiArchiveOut } from 'react-icons/bi';
 import { Porps } from "../types/closeSideBar";
 
-export const Arquivadas = ({closeSidebar}:Porps) => {
+
+export const Arquivadas = ({closeSidebar, isFlexCol, setIsFlexCol}:Porps) => {
 
   const { anotacoesArquivadas,
          setAnotacoesArquivadas,
@@ -41,7 +42,7 @@ if (filteredAnotacoesArchived.length > 0) {
 
  return(
   <section
-      className='flex justify-center items-center gap-4 flex-wrap'
+      className={`flex  justify-center ${isFlexCol? 'flex-row' : ' flex-col'} items-center gap-4 flex-wrap`}
   >
     
   {
@@ -83,7 +84,7 @@ if (filteredAnotacoesArchived.length > 0) {
   return (
 
     <div
-          className='flex justify-center items-center gap-4 flex-wrap'
+          className={`flex justify-center items-center gap-4 flex-wrap ${isFlexCol? 'flex-row' : ' flex-col'} `}
     >
 
             

@@ -1,6 +1,6 @@
 'use client'
 import Image from 'next/image'
-import React, {useState} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import { useAnotacoes } from '../Context/store';
 import { FaTrash } from 'react-icons/fa';
 import { BiArchiveOut } from 'react-icons/bi';
@@ -54,6 +54,9 @@ export const Body = ({closeSidebar, isFlexCol} : Porps) => {
           atualizarTarefaEditada,
           
           } = useAnotacoes();
+          
+          
+          
 
   const salvarTarefa = () => {
     const novoId = Date.now();
@@ -119,6 +122,10 @@ export const Body = ({closeSidebar, isFlexCol} : Porps) => {
 
 }
 
+
+    const fecharInput = () => {
+      setInput(false);}
+
 const controlUseEffect = (id:number) => {
   openModal();
   const anotacaoAtual = anotacoes.find(anotacao => anotacao.id === id);
@@ -172,61 +179,81 @@ const controlUseEffect = (id:number) => {
     );
   } else {
           return (
-            <div className="">
-            <div className={closeSidebar ? '	' : ''}>
-              
-              <section className=' text-white pt-5'>
-              {input ? (
-                <div className="md:flex md:justify-center md:mt-5
-                                grow shrink">
-                  <input
-                    type="text"
-                    className={' p-2 md:w-[600px] border-2 bg-[#202124] shrink w-80'}
+            <section className="">
+            <div
+            
+            className={closeSidebar ? '	' : ''}>
+
+
+                <div
+
+                >
+                {input?
+                 <section
+                 className={`md:justify-center md:align-center md:flex  z-[9999]`}
+                 
+                 >
+
+                  <div
+                  className={`flex flex-col  border border-[#5f6368]  rounded-lg 
+                  mt-10 md:w-[700px] mx-7
+                  `}
+                  
+                  
+                  >
+                    <div
+                    className='flex flex-col mb-14'
+                    >
+                    <input type="text"
+                    placeholder='Titulo'
+                    className=' p-3 md:w-[600px] outline-0 pl-3  bg-[#202124]' 
                     onChange={(e) => setTitle(e.target.value)}
                     value={title}
-                    placeholder="Titulo"
-                    onFocus={() => setInput(true)}
-                    onBlur={() => setInput(false)}
-                  />
-                </div>
-              ) : (
-                <div></div>
-              )}
-      
-              <div className="flex justify-center">
-                <input
-                  type="text"
-                  className={' p-2 md:w-[600px] mb-5 border-2 bg-[#202124] shrink w-80 mr-14 md:ml-14'}
-                  onChange={(e) => setTextInput(e.target.value)}
-                  value={textInput}
-                  placeholder="Criar uma nota..."
-                  onFocus={() => setInput(true)}
-       //           onBlur={() => setInput(false)}
-                />
-              </div>
-      
-              {input ? (
-                <div className=' relative'>
-                   <div className="flex bg-[#202124]
-                                    md:mx-[410px] md:py-5 md:relative md:bottom-5
-                                     border-2
-                                     bottom-1 ">
-                  <button 
-                  className='right-30'
-                   onClick={salvarTarefa}
-                   >
-                    Fechar
-                   </button>
+                    />
+                    <input type="text"
+                    className={' p-3 md:w-[600px] outline-0 pl-3  bg-[#202124]'}
+                    placeholder='Criar uma nota...'
+                    onChange={(e) => setTextInput(e.target.value)}
+                    value={textInput}
+                    />
 
-               
-    
+                    </div>
+
+                    <div
+                    className='flex flex-row justify-end mb-5 mr-3'
+                    >
+                    <button
+                    onClick={salvarTarefa}
+                    
+                    >
+                      Salvar
+                    </button>
+
+                    </div>
+
+
+                  </div>
+                    
+                 </section>
+
+                 :
+                    <section
+                    className='flex justify-center items-center'
+                    >
+                      <input 
+                      className='mt-3  p-3 md:w-[600px] outline-0 w-80
+                                 pl-5 rounded-lg  bg-[#202124] border border-[#5f6368]'
+                                 placeholder='Criar uma nota...'
+                                 onClick={() => setInput(true)}
+                                 /> 
+                    
+
+                    </section>  
+                }
+              
                 </div>
-    
-                </div>
-              ) : (
-                <div></div>
-              )}
-              </section>
+             
+
               
       
               <div
@@ -370,7 +397,7 @@ const controlUseEffect = (id:number) => {
     
               </div>
             </div>
-          </div>
+          </section>
           );
         }
 }
