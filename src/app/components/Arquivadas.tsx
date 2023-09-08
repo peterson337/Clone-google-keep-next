@@ -84,7 +84,9 @@ if (filteredAnotacoesArchived.length > 0) {
   return (
 
     <div
-          className={`flex items-center gap-28 flex-wrap ${isFlexCol? 'flex-row ml-8' : ' flex-col'} `}
+          className={`flex items-center gap-28 flex-wrap ${isFlexCol? 'flex-row ml-8' : ' flex-col'} 
+          ${anotacoesArquivadas.length === 0 ? 'justify-center' : '' }
+           `}
     >
 
             
@@ -139,6 +141,8 @@ if (filteredAnotacoesArchived.length > 0) {
             )
         })
       }
+
+      
     </div>
   )
   

@@ -274,18 +274,19 @@ if (SearchInput.length > 0) {
       
               <div
                    className={isFlexCol ? 
-                    `flex  flex-wrap text-center `
+                    `flex  flex-wrap text-center ${anotacoes.length === 0 ? 'justify-center' : ''} `
                     :
                     `flex flex-col justify-center text-center items-center`
                    }
                     
                         
               >
+                
              {
                anotacoes.length === 0?
                <div
-               className={`flex flex-col justify-center items-center text-center h-96 
-               ${closeSidebar? ' ml-40':' text-center'}`}
+               className={`flex flex-col 
+               justify-center items-center text-center h-96 `}
                >
 
                 <BsLightbulb
