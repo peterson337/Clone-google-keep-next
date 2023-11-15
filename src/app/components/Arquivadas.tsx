@@ -103,7 +103,7 @@ if (filteredAnotacoesArchived.length > 0) {
 
             <p
             className={'text-[#9aa0a6]'}
-            >Nenhuma anotação arquivada enncontrada.</p>
+            >Nenhuma anotação arquivada encontrada.</p>
           </div>
         )
 
