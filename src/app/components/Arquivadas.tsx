@@ -113,16 +113,21 @@ if (filteredAnotacoesArchived.length > 0) {
             return(
               <div
               key={val.id}
-              className='flex border flex-wrap flex-col  w-[200px] 
+              className='flex border  flex-col  w-[200px] 
               h-96 p-4 rounded-[20px] border-[#5f6368] mt-14'
             >
-              <h1>{val.title}</h1>
-              <p>{val.text}</p>
+
+              <div className='space-y-4 h-full overflow-y-auto w-44'>
+              <p className='w-40 break-words'>{val.text}</p>
+              <h1 className='w-40 break-words'>{val.title}</h1>
+
+              </div>
 
               
-           <div className='h-72 grid  content-end'>
+           <div className=' mt-4'>
                <div
-                className='flex flex-row justify-between items-center place-items-end  '               >
+                className='flex flex-row justify-between items-center place-items-end '
+                >
                <button onClick={() => deletarAnotacao(val.id)}>
                   <FaTrash></FaTrash>
                 </button>

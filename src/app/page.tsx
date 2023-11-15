@@ -47,6 +47,7 @@ export default function Home() {
 
       <section>
        <Sidebar
+       setCloseSidebar={setCloseSidebar}
         />
 
         <div

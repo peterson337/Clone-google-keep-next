@@ -8,7 +8,6 @@ import { BsLightbulb, BsFillPencilFill } from 'react-icons/bs';
 import { Modal } from './Modal';
 import { Teste } from '../hook/editarTarefas';
 
-
 type Porps = {
   closeSidebar: boolean;
   isFlexCol: boolean
@@ -378,18 +377,21 @@ if (SearchInput.length > 0) {
             return (
               <section
               key={val.id}
-                className='flex border flex-wrap flex-col m-12 w-[200px] 
-                           h-96 p-4 rounded-[20px] border-[#5f6368]'
+                className='flex border  flex-col m-12 w-[200px] 
+                           h-96 p-4 rounded-[20px] border-[#5f6368]  justify-between gap-3'
+
               >
 
-                <div>
-                <h1>{val.title}</h1>
-                <p>{val.text}</p>
+                <div className=' space-y-4 h-full overflow-y-auto w-44'>
+                <p className='w-40 break-words'>{val.text}</p>
+                <h1 className='w-40 break-words'>{val.title}</h1>
 
                 </div>
-                <div className='h-72 grid  content-end'>
+
+                <div className=' '>
                <div
-                className='flex flex-row justify-between items-center place-items-end  '               >
+                className='flex flex-row justify-between items-center place-items-end'               
+                >
                <button onClick={() => deletarAnotacao(val.id)}>
                   <FaTrash></FaTrash>
                 </button>
